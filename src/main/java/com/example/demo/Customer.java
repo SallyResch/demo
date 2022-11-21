@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -21,7 +21,7 @@ public class Customer {
     private Address address;
     private List<String> favouriteFood;
     private BigDecimal foodBill;
-    private ZonedDateTime created;
+    private LocalDateTime created;
 
     public Customer(String firstName,
                     String lastName,
@@ -31,7 +31,7 @@ public class Customer {
                     Address address,
                     List<String> favouriteFood,
                     BigDecimal foodBill,
-                    ZonedDateTime created) {
+                    LocalDateTime created) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.allergies = allergies;

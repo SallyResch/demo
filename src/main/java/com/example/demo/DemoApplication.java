@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootApplication
@@ -30,9 +30,10 @@ public class DemoApplication {
                     Gender.FEMALE,
                     address,
                     List.of("BeefBourginouge"),
-                    BigDecimal.valueOf(540485),
-                    ZonedDateTime.now()
+                    BigDecimal.TEN,
+                    LocalDateTime.now()
             );
+            repository.insert(customer);
         };
     }
 
