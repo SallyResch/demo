@@ -37,23 +37,32 @@ public class DemoApplication {
                     LocalDateTime.now()
             );
 
-            Query query = new Query();
-            query.addCriteria(Criteria.where("lastName").is(lastName));
-
-            List <Customer> customers = mongoTemplate.find(query,Customer.class);
-
-            if(customers.size() >1){
-                throw new IllegalStateException("found many students with same name " + lastName);
-            }
-            if(customers.isEmpty()){
-                System.out.println("Inserting customer " + customer);
-                repository.insert(customer);
-            }else{
-                System.out.println(customer + "already exists");
-            }
-
+            //usingMongoTemplateAndQuery(repository, mongoTemplate, lastName, customer);
+            repository.findCustomerByLastName(lastName)
+                    .ifPresentOrElse(c -> {
+                        System.out.println(c + "already exists");
+                    }, ()->{System.out.println("Inserting customer " + customer);
+                        repository.insert(customer);
+                    });
 
         };
+    }
+
+    private void usingMongoTemplateAndQuery(CustomerRepository repository, MongoTemplate mongoTemplate, String lastName, Customer customer) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("lastName").is(lastName));
+
+        List <Customer> customers = mongoTemplate.find(query,Customer.class);
+
+        if(customers.size() >1){
+            throw new IllegalStateException("found many students with same name " + lastName);
+        }
+        if(customers.isEmpty()){
+            System.out.println("Inserting customer " + customer);
+            repository.insert(customer);
+        }else{
+            System.out.println(customer + "already exists");
+        }
     }
 
 }
