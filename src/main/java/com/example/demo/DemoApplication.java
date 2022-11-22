@@ -21,7 +21,6 @@ public class DemoApplication {
     CommandLineRunner runner (CustomerRepository repository) {
         return args -> {
             Address address = new Address("Sweden","Södertälje", "15160");
-
             Customer customer = new Customer(
                     "Sally",
                     "Resch",
